@@ -9,6 +9,7 @@ import ProxmoxVM from "widgets/proxmoxvm/component";
 import KubernetesStatus from "./kubernetes-status";
 import Ping from "./ping";
 import ProxmoxStatus from "./proxmox-status";
+import ServiceStatus from "./service-status";
 import SiteMonitor from "./site-monitor";
 import Status from "./status";
 import Widget from "./widget";
@@ -89,6 +90,13 @@ export default function Item({ service, groupName, useEqualHeights }) {
               statusStyle === "dot" ? "gap-0" : "gap-2 mr-2"
             } z-10 service-tags`}
           >
+            {service.serviceStatus && (
+              <div className="shrink-0 flex items-center justify-center service-tag service-status-check">
+                <ServiceStatus groupName={groupName} serviceName={service.name} style={statusStyle} />
+                <span className="sr-only">Service status</span>
+              </div>
+            )}
+
             {service.ping && (
               <div className="shrink-0 flex items-center justify-center service-tag service-ping">
                 <Ping groupName={groupName} serviceName={service.name} style={statusStyle} />
